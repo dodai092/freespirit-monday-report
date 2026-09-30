@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Production Report 2025 &amp; 2026</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="shared/fs-core.css" />
+    <link rel="stylesheet" href="monday.css" />
+    <link rel="stylesheet" href="shared/jura-theme.css" />
+    <link rel="stylesheet" href="shared/mobile-fixes.css" />
+    <style>html.dark-mode body { background-color: #111111; color: #eeeeee; }</style>
+    <script>(function(){if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark-mode');})();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <div class="nav">
+      <div class="flex-align-center">
+        <img src="freespirit_logo_crop.jpg" alt="Free Spirit">
+        <div class="nav-tabs" role="tablist" aria-label="Main navigation">
+          <div id="tab-p25" class="nav-tab" role="tab" aria-selected="false" tabindex="-1">Travel Year 2025</div>
+          <div id="tab-p26" class="nav-tab" role="tab" aria-selected="false" tabindex="-1">Travel Year 2026</div>
+          <div id="tab-pcmp" class="nav-tab active" role="tab" aria-selected="true" tabindex="0">Comparison</div>
+          <div id="tab-prb" class="nav-tab" role="tab" aria-selected="false" tabindex="-1">Roundabout</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2" fill="none"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <svg class="theme-icon theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <button class="print-btn">&#8595; Print / Save PDF</button>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE 2025 ==================== -->
+    <div id="sticky-kpi-bar" aria-hidden="true"></div>
+
+    <div id="p25" class="page">
+      <div class="header">
+        <div class="header-left">
+          <h1>Travel Year <span class="accent">2025</span></h1>
+          <p id="hdr-stat25">—</p>
+        </div>
+        <div class="header-right">
+          <div id="date-25"></div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="kpi-grid">
+          <div class="kpi hl-green">
+            <div class="kpi-label">Total RUC</div>
+            <div class="kpi-value" id="kpi-ruc25">—</div>
+            <div class="kpi-sub">excl. VAT · primary metric</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Deal Value</div>
+            <div class="kpi-value" id="kpi-val25">—</div>
+            <div class="kpi-sub">total closed</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Total deals</div>
+            <div class="kpi-value" id="kpi-cnt25">—</div>
+            <div class="kpi-sub">Travel year 2025</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">RUC margin</div>
+            <div class="kpi-value" id="kpi-margin25">—</div>
+            <div class="kpi-sub" id="kpi-sub-margin25">—</div>
+          </div>
+        </div>
+        <div class="section-title">Cumulative growth · YTD</div>
+        <div class="card">
+          <div class="card-title">Cumulative RUC and Deal Value — by closed date</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-green"></div>Cumulative RUC</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-blue-dim"></div>Cumulative Deal Value</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-border"></div>2024 closed</div>
+          </div>
+          <div class="chart-container-280"><canvas id="ytd25"></canvas></div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-title">RUC by closed month</div>
+            <div id="ruc25-bars"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Deals by closed month</div>
+            <div id="cnt25-bars"></div>
+          </div>
+        </div>
+        <div class="section-title">By Owner</div>
+        <div class="two-col">
+          <div class="card">
+            <div class="card-title">By owner — ranked by RUC</div>
+            <div id="owner25-list"></div>
+          </div>
+          <div class="card flex-col">
+            <div class="card-title">RUC split by owner</div>
+            <div class="chart-container-180"><canvas id="donut25"></canvas></div>
+            <div class="legend legend-centered" id="donut25-leg"></div>
+          </div>
+        </div>
+        <div class="section-title">By Agency</div>
+        <div class="card">
+          <div class="card-title">Agencies ranked by RUC</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-green"></div>RUC</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-blue"></div>Deal Value</div>
+          </div>
+          <div id="ag25-list"></div>
+        </div>
+        <div class="section-title">Travel Pipeline</div>
+        <div class="card">
+          <div class="card-title">Deals by travel start month</div>
+          <div id="travel25-bars"></div>
+        </div>
+        <div class="section-title">Detailed Table</div>
+        <div class="card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th class="sort-hdr" data-key="idx">Closed Month</th><th class="sort-hdr num" data-key="cnt">Deals</th><th class="sort-hdr num" data-key="ruc">RUC</th>
+                <th class="sort-hdr num" data-key="val">Deal Value</th><th class="sort-hdr num" data-key="cc">YTD Deals</th>
+                <th class="sort-hdr num" data-key="cr">YTD RUC</th><th class="sort-hdr num" data-key="cv">YTD Value</th><th class="sort-hdr num" data-key="margin">Margin</th>
+              </tr></thead>
+              <tbody id="tbl25"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE 2026 ==================== -->
+    <div id="p26" class="page">
+      <div class="header">
+        <div class="header-left">
+          <h1>Travel Year <span class="accent">2026</span></h1>
+          <p id="hdr-stat26">—</p>
+        </div>
+        <div class="header-right">
+          <div id="date-26"></div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="kpi-grid">
+          <div class="kpi hl-purple">
+            <div class="kpi-label">Total RUC</div>
+            <div class="kpi-value" id="kpi-ruc26">—</div>
+            <div class="kpi-sub">excl. VAT · in progress</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Deal Value</div>
+            <div class="kpi-value" id="kpi-val26">—</div>
+            <div class="kpi-sub">total closed</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Total deals</div>
+            <div class="kpi-value" id="kpi-cnt26">—</div>
+            <div class="kpi-sub">Travel year 2026 · growing</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">RUC margin</div>
+            <div class="kpi-value" id="kpi-margin26">—</div>
+            <div class="kpi-sub" id="kpi-sub-margin26">—</div>
+          </div>
+        </div>
+        <div class="section-title purple">Cumulative growth · YTD 2026</div>
+        <div class="card purple-card">
+          <div class="card-title">Cumulative RUC and Deal Value — by closed date</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-purple"></div>Cumulative RUC</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-blue-dim"></div>Cumulative Deal Value</div>
+          </div>
+          <div class="chart-container-260"><canvas id="ytd26"></canvas></div>
+        </div>
+        <div class="two-col">
+          <div class="card purple-card">
+            <div class="card-title">RUC by closed month</div>
+            <div id="ruc26-bars"></div>
+          </div>
+          <div class="card purple-card">
+            <div class="card-title">Deals by closed month</div>
+            <div id="cnt26-bars"></div>
+          </div>
+        </div>
+        <div class="section-title purple">By Owner</div>
+        <div class="two-col">
+          <div class="card purple-card">
+            <div class="card-title">By owner — ranked by RUC</div>
+            <div id="owner26-list"></div>
+          </div>
+          <div class="card purple-card flex-col">
+            <div class="card-title">RUC split by owner</div>
+            <div class="chart-container-180"><canvas id="donut26"></canvas></div>
+            <div class="legend legend-centered" id="donut26-leg"></div>
+          </div>
+        </div>
+        <div class="section-title purple">By Agency</div>
+        <div class="card purple-card">
+          <div class="card-title">Agencies ranked by RUC</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-purple"></div>RUC</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-blue"></div>Deal Value</div>
+          </div>
+          <div id="ag26-list"></div>
+        </div>
+        <div class="section-title purple">Travel Pipeline 2026</div>
+        <div class="card purple-card">
+          <div class="card-title">Deals by travel start month</div>
+          <div id="travel26-bars"></div>
+        </div>
+        <div class="section-title purple">Created Date · Pipeline growth</div>
+        <div class="card purple-card">
+          <div class="card-title">When deals were created — monthly increase and cumulative</div>
+          <div class="chart-container-220"><canvas id="created26"></canvas></div>
+        </div>
+        <div class="section-title purple">Detailed Table</div>
+        <div class="card purple-card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th class="sort-hdr" data-key="idx">Closed Month</th><th class="sort-hdr num" data-key="cnt">Deals</th><th class="sort-hdr num" data-key="ruc">RUC</th>
+                <th class="sort-hdr num" data-key="val">Deal Value</th><th class="sort-hdr num" data-key="cc">YTD Deals</th>
+                <th class="sort-hdr num" data-key="cr">YTD RUC</th><th class="sort-hdr num" data-key="cv">YTD Value</th><th class="sort-hdr num" data-key="margin">Margin</th>
+              </tr></thead>
+              <tbody id="tbl26"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE COMPARISON ==================== -->
+    <div id="pcmp" class="page active">
+      <div class="header">
+        <div class="header-left">
+          <h1><span class="accent">2025</span> vs <span class="accent">2026</span></h1>
+          <p>Travel year comparison · RUC, Deals, Deal Value</p>
+        </div>
+        <div class="header-right">
+        </div>
+      </div>
+      <div class="main">
+        <p class="takeaway" id="takeaway-cmp"></p>
+        <div class="kpi-grid">
+          <div class="kpi hl-green">
+            <div class="kpi-label">RUC 2025 (final)</div>
+            <div class="kpi-value" id="kpi-cmp-ruc25">—</div>
+            <div class="kpi-sub" id="kpi-cmp-cnt25">—</div>
+          </div>
+          <div class="kpi hl-purple">
+            <div class="kpi-label">RUC 2026 (YTD)</div>
+            <div class="kpi-value" id="kpi-cmp-ruc26">—</div>
+            <div class="kpi-sub" id="kpi-cmp-cnt26">—</div>
+          </div>
+          <div class="kpi hl-amber">
+            <div class="kpi-label">2026 vs 2025 pace</div>
+            <div class="kpi-value" id="kpi-pace">—</div>
+            <div class="kpi-sub">of full-year 2025 RUC</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Deals 2026 vs 2025</div>
+            <div class="kpi-value" id="kpi-dealpace">—</div>
+            <div class="kpi-sub" id="kpi-dealpace-sub">—</div>
+          </div>
+        </div>
+        <div class="kpi-grid kpi-grid-2">
+          <div class="kpi hl-blue">
+            <div class="kpi-label">RUC · same period</div>
+            <div class="kpi-delta">
+              <span class="kpi-delta-abs" id="kd-ruc-abs">—</span>
+              <span class="kpi-delta-pct" id="kd-ruc-pct">—</span>
+            </div>
+            <div class="kpi-2y">
+              <div><div class="kpi-2y-label">2025</div><div class="kpi-2y-val" id="kv-ruc25">—</div></div>
+              <div><div class="kpi-2y-label">2026</div><div class="kpi-2y-val" id="kv-ruc26">—</div></div>
+            </div>
+          </div>
+          <div class="kpi hl-blue">
+            <div class="kpi-label">Deals · same period</div>
+            <div class="kpi-delta">
+              <span class="kpi-delta-abs" id="kd-cnt-abs">—</span>
+              <span class="kpi-delta-pct" id="kd-cnt-pct">—</span>
+            </div>
+            <div class="kpi-2y">
+              <div><div class="kpi-2y-label">2025</div><div class="kpi-2y-val" id="kv-cnt25">—</div></div>
+              <div><div class="kpi-2y-label">2026</div><div class="kpi-2y-val" id="kv-cnt26">—</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-title amber">Cumulative RUC — 2025 vs 2026 · same chart</div>
+        <div class="card amber-card">
+          <div class="card-title">Cumulative RUC — comparison by month (Jan = first closing month of the year)</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-green"></div>2025 (closed Jan→Nov 25)</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-purple"></div>2026 (closed Aug 25→Apr 26)</div>
+          </div>
+          <div class="chart-container-300"><canvas id="cmp-chart"></canvas></div>
+        </div>
+        <div class="section-title amber">RUC head-to-head · by month</div>
+        <div class="card amber-card">
+          <div class="card-title">RUC comparison — 2025 vs 2026 · same calendar months</div>
+          <div class="chart-container-260"><canvas id="cmp-bar"></canvas></div>
+        </div>
+        <div class="section-title amber">Month by month · head to head</div>
+        <div class="card amber-card">
+          <div class="card-title">RUC by month — 2025 vs 2026 · line is green when 2026 is ahead, red when behind</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-green"></div>2025</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-purple"></div>2026</div>
+          </div>
+          <div class="db-ticks"><div></div><div id="cmp-ticks"></div><div></div></div>
+          <div id="cmp-rows"></div>
+        </div>
+        <div class="section-title amber">Owner comparison</div>
+        <div class="card amber-card">
+          <div class="card-title">RUC by owner — 2025 vs 2026</div>
+          <div class="chart-container-240"><canvas id="cmp-owner"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== PAGE ROUNDABOUT ==================== -->
+    <div id="prb" class="page">
+      <div class="header">
+        <div class="header-left">
+          <h1>Roundabout <span class="accent">Key Account</span></h1>
+          <p>Travel 2025 vs 2026 · Deep Dive Analytics</p>
+        </div>
+        <div class="header-right">
+        </div>
+      </div>
+      <div class="main">
+        <div class="section-title amber">2025 vs 2026 · Key Metrics</div>
+        <div class="two-col" style="margin-bottom: 20px">
+          <div class="grid-rb-kpis">
+            <div class="kpi hl-green">
+              <div class="kpi-label">RUC 2025 (final)</div>
+              <div class="kpi-value" id="kpi-rb-ruc25">—</div>
+              <div class="kpi-sub" id="kpi-rb-cnt25">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Deal Value 2025</div>
+              <div class="kpi-value" id="kpi-rb-val25">—</div>
+              <div class="kpi-sub" id="kpi-rb-valpct25">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Avg RUC / deal</div>
+              <div class="kpi-value kpi-value-green" id="kpi-rb-avg25">—</div>
+              <div class="kpi-sub" id="kpi-rb-avgval25">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Margin 2025</div>
+              <div class="kpi-value" id="kpi-rb-margin25">—</div>
+              <div class="kpi-sub" id="kpi-rb-margin25-sub">—</div>
+            </div>
+          </div>
+          <div class="grid-rb-kpis">
+            <div class="kpi hl-purple">
+              <div class="kpi-label">RUC 2026 (YTD)</div>
+              <div class="kpi-value" id="kpi-rb-ruc26">—</div>
+              <div class="kpi-sub" id="kpi-rb-cnt26">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Deal Value 2026</div>
+              <div class="kpi-value" id="kpi-rb-val26">—</div>
+              <div class="kpi-sub" id="kpi-rb-val26-vs">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Avg RUC / deal</div>
+              <div class="kpi-value kpi-value-purple" id="kpi-rb-avg26">—</div>
+              <div class="kpi-sub" id="kpi-rb-avg26-vs">—</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Avg Value / deal</div>
+              <div class="kpi-value" id="kpi-rb-avgval26">—</div>
+              <div class="kpi-sub" id="kpi-rb-avgval26-vs">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="section-title amber">Cumulative RUC · 2025 vs 2026</div>
+        <div class="card amber-card">
+          <div class="card-title">Cumulative RUC — Travel 2025 (light blue) vs Travel 2026 (dark blue) · by closing order</div>
+          <div class="legend">
+            <div class="leg-item"><div class="leg-dot leg-dot-green"></div>Travel 2025</div>
+            <div class="leg-item"><div class="leg-dot leg-dot-purple"></div>Travel 2026 (YTD)</div>
+          </div>
+          <div class="chart-container-280"><canvas id="rb-cmp-ytd"></canvas></div>
+        </div>
+        <div class="section-title amber">RUC by month · head-to-head</div>
+        <div class="card amber-card">
+          <div class="card-title">RUC comparison by calendar month — Roundabout 2025 vs 2026</div>
+          <div class="chart-container-220"><canvas id="rb-cmp-bar"></canvas></div>
+        </div>
+        <div class="two-col">
+          <div class="card amber-card">
+            <div class="card-title">Closed deals by month · 2025 vs 2026</div>
+            <div class="chart-container-200"><canvas id="rb-cmp-cnt"></canvas></div>
+          </div>
+        </div>
+        <div class="section-title amber">Travel 2025 · Details</div>
+        <div class="card amber-card">
+          <div class="card-title">Cumulative RUC and Deal Value — Travel 2025</div>
+          <div class="chart-container-200"><canvas id="rb-ytd"></canvas></div>
+        </div>
+        <div class="two-col">
+          <div class="card amber-card">
+            <div class="card-title">RUC by closed month · 2025</div>
+            <div id="rb-ruc-bars"></div>
+          </div>
+          <div class="card amber-card">
+            <div class="card-title">Deals closed by month · 2025</div>
+            <div id="rb-cnt-bars"></div>
+          </div>
+        </div>
+        <div class="card amber-card">
+          <div class="card-title">Created date · monthly increase and cumulative · 2025</div>
+          <div class="chart-container-200"><canvas id="rb-created"></canvas></div>
+        </div>
+        <div class="card amber-card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th class="sort-hdr" data-key="idx">Closed Month</th><th class="sort-hdr num" data-key="cnt">Deals</th><th class="sort-hdr num" data-key="ruc">RUC</th>
+                <th class="sort-hdr num" data-key="val">Deal Value</th><th class="sort-hdr num" data-key="cc">YTD Deals</th>
+                <th class="sort-hdr num" data-key="cr">YTD RUC</th><th class="sort-hdr num" data-key="cv">YTD Value</th><th class="sort-hdr num" data-key="margin">Margin</th>
+              </tr></thead>
+              <tbody id="rb-tbl"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="section-title amber">Travel 2026 · Details (YTD)</div>
+        <div class="card purple-card">
+          <div class="card-title">Cumulative RUC and Deal Value — Travel 2026</div>
+          <div class="chart-container-200"><canvas id="rb26-ytd"></canvas></div>
+        </div>
+        <div class="two-col">
+          <div class="card purple-card">
+            <div class="card-title">RUC by closed month · 2026</div>
+            <div id="rb26-ruc-bars"></div>
+          </div>
+          <div class="card purple-card">
+            <div class="card-title">Deals closed by month · 2026</div>
+            <div id="rb26-cnt-bars"></div>
+          </div>
+        </div>
+        <div class="card purple-card">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th class="sort-hdr" data-key="idx">Closed Month</th><th class="sort-hdr num" data-key="cnt">Deals</th><th class="sort-hdr num" data-key="ruc">RUC</th>
+                <th class="sort-hdr num" data-key="val">Deal Value</th><th class="sort-hdr num" data-key="cc">YTD Deals</th>
+                <th class="sort-hdr num" data-key="cr">YTD RUC</th><th class="sort-hdr num" data-key="cv">YTD Value</th><th class="sort-hdr num" data-key="margin">Margin</th>
+              </tr></thead>
+              <tbody id="rb26-tbl"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Production Report · Travel Year 2025 &amp; 2026 · Updated:
+      <span id="footer-date"></span> · RUC = Revenue excl. VAT
+    </div>
+
+    <div id="shortcut-overlay" role="dialog" aria-modal="true" aria-labelledby="shortcut-overlay-title" aria-hidden="true">
+      <div class="overlay-title" id="shortcut-overlay-title">Keyboard shortcuts <button class="overlay-close" aria-label="Close keyboard shortcuts">✕</button></div>
+      <table>
+        <tr><td>1</td><td>Travel Year 2025</td></tr>
+        <tr><td>2</td><td>Travel Year 2026</td></tr>
+        <tr><td>3</td><td>Comparison</td></tr>
+        <tr><td>4</td><td>Roundabout</td></tr>
+        <tr><td>t</td><td>Toggle theme</td></tr>
+        <tr><td>?</td><td>Show/hide this</td></tr>
+      </table>
+    </div>
+
+    <script src="monday-data.js"></script>
+    <script src="shared/fs-core.js"></script>
+    <script src="monday.js"></script>
+  </body>
+</html>

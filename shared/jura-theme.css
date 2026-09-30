@@ -1,0 +1,215 @@
+/* jura-theme.css (shared/): trimmed copy of evidencija/jura-theme.css for the Monday report.
+   Evidencija is a separate repo with its own copy; the two drift by design.
+   Loaded by monday/index.html only. recap/ does not load it.
+   Dropped: city colors/pills, filter chips, guide cards, movers, mpax/gc/mgmt tables. */
+
+:root {
+  --font-sans: 'IBM Plex Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  --font-serif: var(--font-sans);
+  --font-mono: var(--font-sans);
+  --radius: 4px;
+  --radius-sm: 4px;
+
+  --white: #ffffff;
+  --smoke: #f5f5f5;
+  --card-bg: #f5f5f5;
+  --nav-bg: #ffffff;
+  --border: #dddddd;
+  --border-dark: #dddddd;
+  --text: #1a1a1a;
+  --text2: #4d4d4d;
+  --text3: #767676;
+
+
+  --y25: #5b95de;
+  --y26: #2a78d6;
+}
+
+body.dark-mode {
+  --white: #121212;
+  --smoke: #1e1e1e;
+  --card-bg: #1e1e1e;
+  --nav-bg: #121212;
+  --border: #333333;
+  --border-dark: #333333;
+  --text: #f0f0f0;
+  --text2: #c0c0c0;
+  --text3: #a0a0a0;
+
+
+  /* Zagreb blue, lifted for the dark surface; 2025 is the dimmer step */
+  --y25: #3780d8;
+  --y26: #5aa0f0;
+}
+
+@media (min-width: 769px) {
+  :root {
+    --nav-h: 56px;
+    --pad: 24px;
+    --max-w: 1440px;
+  }
+
+  .nav {
+    height: var(--nav-h);
+    padding: 0 var(--pad);
+  }
+}
+
+body {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── NAV (desktop only: the phone layout is left as is) ── */
+@media (min-width: 769px) {
+  .nav-tabs { gap: 22px; margin-left: 12px; }
+  .nav-tabs .nav-tab {
+    padding: 6px 0 10px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text3);
+  }
+  .nav-tabs .nav-tab:hover { color: var(--text); }
+  .nav-tabs .nav-tab.active {
+    color: var(--text);
+    font-weight: 600;
+    border-bottom-color: var(--text);
+  }
+}
+
+.nav img { height: 28px; }
+.nav-actions { gap: 8px; }
+.theme-toggle-icon { border: 1px solid var(--border); border-radius: var(--radius); }
+.print-btn {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.print-btn:hover,
+body.dark-mode .print-btn:hover { background: var(--smoke); }
+.date-picker-ui,
+.filter-select {
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+}
+
+/* ── PAGE HEADER: compact title row, badge hidden ── */
+.header-left h1 {
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.header-left h1 .accent { color: var(--text3); font-weight: 400; }
+.header-left p {
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 4px;
+}
+.section-title { letter-spacing: 0.04em; font-weight: 600; }
+.section-title::after { display: none; }
+
+/* ── KPI + CARDS ── */
+.kpi-grid { background: transparent; }
+.kpi:hover { background: var(--white); }
+.kpi.hl-green,
+.kpi.hl-blue { border-top: 1px solid var(--border); }
+.kpi-label,
+.chart-card-title,
+.card-title {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text3);
+}
+.card,
+.chart-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.card:hover,
+.chart-card:hover,
+body.dark-mode .card,
+body.dark-mode .card:hover {
+  box-shadow: none;
+  border-color: var(--border);
+}
+.chart-card h3 { font-size: 15px; font-weight: 600; }
+
+/* Layout that must not touch the phone: desktop only */
+@media (min-width: 769px) {
+  .date-picker-label { font-size: 12px; }
+  .date-picker-ui,
+  .filter-select { padding: 6px 10px; font-size: 13px; }
+  .header { padding: 20px var(--pad) 14px; align-items: baseline; }
+  .header-left h1 { font-size: 20px; }
+  .header-right { font-size: 13px; }
+  .header-badge { display: none; }
+  .main { padding: 24px var(--pad); }
+  .kpi-grid { padding: 0; gap: 12px; margin-bottom: 20px; }
+  .kpi { padding: 14px 16px; }
+  .card,
+  .chart-card { padding: 16px; }
+  .print-btn { padding: 6px 12px; font-size: 13px; }
+}
+
+/* Monday's theme button uses .theme-toggle (evidencija uses .theme-toggle-icon) */
+.theme-toggle { border: 1px solid var(--border); border-radius: var(--radius); }
+
+/* ── Sticky mini-KPI bar (shown once the page KPI grid scrolls out of view) ── */
+#sticky-kpi-bar {
+  position: fixed; top: var(--nav-h, 56px); left: 0; right: 0; height: 36px;
+  background: var(--nav-bg); border-bottom: 1px solid var(--border-dark);
+  display: none; align-items: center; gap: 10px; padding: 0 var(--pad, 24px);
+  font-size: 12px; font-family: var(--font-sans); z-index: 90;
+}
+#sticky-kpi-bar.visible { display: flex; }
+.skpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); }
+.skpi-sep { color: var(--text3); }
+@media (max-width: 768px) { #sticky-kpi-bar { display: none !important; } }
+
+/* ── Keyboard shortcut overlay (copied from evidencija/guides.css) ── */
+#shortcut-overlay {
+  position: fixed; bottom: 24px; right: 24px;
+  background: var(--card-bg); border: 1px solid var(--border-dark); border-radius: var(--radius);
+  padding: 14px 18px; font-size: 12px; z-index: 300; display: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); min-width: 200px;
+}
+#shortcut-overlay table { border-collapse: collapse; width: 100%; }
+#shortcut-overlay td { padding: 3px 8px 3px 0; color: var(--text2); border: none; }
+#shortcut-overlay td:first-child { font-family: var(--font-mono); font-weight: 600; color: var(--text); width: 32px; }
+#shortcut-overlay .overlay-title {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 8px;
+}
+#shortcut-overlay .overlay-close {
+  float: right; cursor: pointer; color: var(--text3); font-size: 14px; line-height: 1;
+  background: none; border: none; padding: 0; font-family: inherit;
+}
+
+/* ── Page fade-in, focus rings, reduced motion (from evidencija/guides.css) ── */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page.active { animation: pageIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media print { .page.active { animation: none; } }
+
+:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; border-radius: 2px; }
+.nav-tab:focus-visible { outline: 2px solid var(--text); outline-offset: -3px; border-radius: 0; }
+.sort-hdr:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

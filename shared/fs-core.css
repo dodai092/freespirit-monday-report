@@ -1,0 +1,533 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Inconsolata:wght@400;500&display=swap');
+
+/* ════════════════════════════════════════════════════════════
+   fs-core.css — shared FreeSpirit report foundation
+   Load this BEFORE any report-specific stylesheet.
+   Each report defines --radius in its own :root.
+   ════════════════════════════════════════════════════════════ */
+
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --smoke: #f5f5f5;
+  --border: #e8e8e8;
+  --border-dark: #cccccc;
+  --text: #111111;
+  --text2: #555555;
+  --text3: #767676;
+  --card-bg: #fafafa;
+  --nav-bg: var(--white);
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Montserrat', Helvetica, sans-serif;
+  --font-mono: 'Inconsolata', monospace;
+
+  --max-w: 1400px;
+  --pad: 48px;
+  --radius-sm: 4px;
+  /* --radius intentionally absent: monday = 0px, recap/evidencija = 8px — each report defines it */
+
+  /* shared accent palette */
+  --green: #1D9E75;
+  --green-light: #5DCAA5;
+  --purple: #534AB7;
+  --purple-light: #B0AAEE;
+  --amber: #BA7517;
+  --amber-light: #F5C870;
+  --blue: #378ADD;
+  --blue-light: #85B7EB;
+  --pink: #D4537E;
+}
+
+body.dark-mode {
+  --white: #111111;
+  --smoke: #1a1a1a;
+  --border: #333333;
+  --border-dark: #444444;
+  --text: #eeeeee;
+  --text2: #bbbbbb;
+  --text3: #888888;
+  --card-bg: #1e1e1e;
+  --black: #ffffff;
+  --nav-bg: #111111;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--white);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── NAV ── */
+.nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 0 var(--pad);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.3s;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav img {
+  height: 28px;
+  display: block;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+body.dark-mode .nav img {
+  filter: invert(1) brightness(2);
+}
+
+/* ── THEME TOGGLE (SVG icon button) ── */
+/* .theme-toggle-icon is the class used by evidencija; .theme-toggle by monday + recap */
+.theme-toggle,
+.theme-toggle-icon {
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover,
+.theme-toggle-icon:hover {
+  background: var(--smoke);
+}
+
+.theme-icon {
+  width: 15px;
+  height: 15px;
+  color: var(--text);
+  transition: opacity 0.3s;
+  position: absolute;
+  pointer-events: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.theme-icon-sun  { opacity: 1; }
+.theme-icon-moon { opacity: 0; }
+
+body.dark-mode .theme-icon-sun  { opacity: 0; }
+body.dark-mode .theme-icon-moon { opacity: 1; }
+
+/* ── PRINT BUTTON ── */
+.print-btn {
+  padding: 8px 20px;
+  background: var(--black);
+  border: none;
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s;
+}
+
+.print-btn:hover { background: #333; }
+
+body.dark-mode .print-btn:hover { background: #eee; }
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  display: flex;
+}
+
+.nav-tab {
+  padding: 18px 22px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-bottom-color 0.2s, transform 0.1s ease;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+.nav-tab:hover {
+  color: var(--text2);
+}
+
+.nav-tab:focus-visible {
+  outline: 2px solid var(--text2);
+  outline-offset: -4px;
+}
+
+.nav-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--black);
+}
+
+/* ── KPI ── */
+.kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+}
+
+.kpi-sub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 6px;
+  font-family: var(--font-mono);
+}
+
+/* ── CARD ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  border-radius: var(--radius, 0px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .card {
+  border-color: var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── SECTION TITLE ── */
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── BAR ROWS ── */
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 9px;
+}
+
+.bar-lbl {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  width: 58px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.bar-track {
+  flex: 1;
+  height: 5px;
+  background: var(--border);
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 0;
+}
+
+.bar-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  min-width: 54px;
+}
+
+/* ── OWNER LIST ── */
+.owner-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.owner-item:last-child { border-bottom: none; }
+
+.owner-hd {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.owner-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.owner-cnt {
+  font-size: 12px;
+  color: var(--text3);
+  margin-left: auto;
+  font-family: var(--font-mono);
+}
+
+.owner-bar {
+  height: 3px;
+  margin-bottom: 8px;
+}
+
+.owner-stats { display: flex; gap: 16px; }
+
+.stat { font-size: 12px; }
+.stat .val { font-family: var(--font-mono); font-weight: 500; }
+.stat .lbl { color: var(--text3); }
+
+/* ── AGENCY LIST ── */
+.ag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ag-row:last-child { border-bottom: none; }
+
+.ag-rank {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.ag-name {
+  font-size: 13px;
+  color: var(--text);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ag-cnt {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--font-mono);
+}
+
+.ag-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.ag-track {
+  height: 4px;
+  background: var(--border);
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.ag-fill { height: 100%; }
+
+.ag-vals {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 52px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.ag-v {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.ag-pct {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  width: 40px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ── LEGEND (donut chart legend) ── */
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text2);
+  font-family: var(--font-sans);
+}
+
+.leg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── HELPER UTILITY CLASSES ── */
+.flex-align-center {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.chart-container-260 {
+  position: relative;
+  height: 260px;
+}
+
+.chart-container-280 {
+  position: relative;
+  height: 280px;
+}
+
+.chart-container-300 {
+  position: relative;
+  height: 300px;
+}
+
+.chart-container-240 {
+  position: relative;
+  height: 240px;
+}
+
+.chart-container-220 {
+  position: relative;
+  height: 220px;
+}
+
+.chart-container-200 {
+  position: relative;
+  height: 200px;
+}
+
+.chart-container-180 {
+  flex: 1;
+  position: relative;
+  min-height: 180px;
+}
+
+.chart-container-card {
+  flex: 1;
+  position: relative;
+  min-height: 240px;
+}
+
+.chart-container-donut {
+  flex: 1;
+  position: relative;
+  min-height: 220px;
+}
+
+.grid-rb-kpis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+body.dark-mode .grid-rb-kpis {
+  background: var(--border);
+  border-color: var(--border);
+}
+
+/* ── SHORTCUT OVERLAY BACKDROP BLUR ── */
+#shortcut-overlay {
+  backdrop-filter: blur(6px);
+  background: rgba(250, 250, 250, 0.9) !important;
+}
+
+body.dark-mode #shortcut-overlay {
+  background: rgba(30, 30, 30, 0.9) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}

@@ -1,0 +1,93 @@
+/* Copy of evidencija/mobile-fixes.css for the Monday report. Evidencija keeps its own; they drift by design. Loaded by monday only. */
+/* Pre-existing phone-layout bugs, not from the Jura restyle theme.
+   Kept separate from jura-theme.css, which stays phone-untouched. */
+
+/* Comparison opening takeaway sentence, above the filter bar. */
+.takeaway {
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* Monthly table: the first metric group's header was a dark band with
+   white text. Use a light tint, like the city headers in jura-theme.css. */
+.mpax-metric-head.mpax-metric-primary {
+  color: var(--text);
+  background: color-mix(in srgb, var(--text) 12%, var(--white));
+}
+
+/* Filter bars (Tours 2025/2026, Comparison, Guides) stay pinned under the
+   sticky top nav. Applies at every width, so it sits outside the phone
+   media query; jura-theme.css and guides.css are not touched. */
+.filter-bar {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 90;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border);
+  margin: 0 calc(-1 * var(--pad)) 16px;
+  padding: 10px var(--pad);
+}
+
+@media (max-width: 768px) {
+  /* The phone top nav is 33px tall, not the 60px --nav-h from guides.css. */
+  .filter-bar {
+    top: 33px;
+  }
+
+  /* Bottom tab bar: flex items default to a content-based min-width,
+     so long labels (e.g. "Comparison 25/26") never actually shrink to
+     fit and push the last tabs off screen. Let them shrink and wrap. */
+  .nav-tab {
+    min-width: 0;
+    white-space: normal;
+    font-size: 9px;
+    letter-spacing: 0;
+    line-height: 1.3;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  /* Grid items also default to a content-based min-width, so a chart
+     card containing a wide, horizontally-scrollable table (min-width:
+     760px) blows out its grid track instead of scrolling internally.
+     Same default breaks a KPI card whose delta text is wider than its
+     track. */
+  .charts-row > *,
+  .kpi-grid > * {
+    min-width: 0;
+  }
+
+  /* Comparison's headline numbers (.kpi-delta-abs/.kpi-delta-pct) have
+     no mobile override in guides.css, unlike Tours 25/26's .kpi-2y-val,
+     so they stay at desktop size (36px/26px) and overflow their card. */
+  .kpi-delta-abs {
+    font-size: 26px;
+  }
+  .kpi-delta-pct {
+    font-size: 18px;
+  }
+}
+
+/* Visible captions for the language and month dropdowns in the filter bar. */
+.filter-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.filter-label {
+  font-size: 11px;
+  color: var(--text3);
+}
+
+/* Language pill group sits beside the city pills; the month dropdown follows it. */
+.filter-dropdowns {
+  margin-left: 0;
+}
+
+/* Free/Paid section headers scroll away. The filter bar and the paid type row stay sticky. */
+.section-divider {
+  position: static;
+}

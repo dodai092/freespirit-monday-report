@@ -1,0 +1,732 @@
+/* TY2025 / TY2026 identity colors follow the evidencija theme series colors.
+   Deal Value series (formerly blue) goes neutral gray so it stays distinct from them. */
+:root {
+  --green: var(--y25);
+  --purple: var(--y26);
+  --blue: #8c8c8c;
+  --blue-light: #bdbdbd;
+  --purple-light: #8fb8ea;
+  --delta-pos: #1d9e75;
+  --delta-neg: #d4545a;
+}
+body.dark-mode {
+  --green: var(--y25);
+  --purple: var(--y26);
+  --blue: #9a9a9a;
+  --blue-light: #6b6b6b;
+  --purple-light: #8fb8ea;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--white);
+  padding: 40px var(--pad) 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.header-left h1 {
+  font-family: var(--font-serif);
+  font-size: 50px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.header-left p {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+}
+
+.header-right {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text3);
+}
+
+/* ── LAYOUT ── */
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.main {
+  padding: 40px var(--pad);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* ── KPI GRID ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.kpi {
+  background: var(--white);
+  padding: 24px 28px;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.kpi:hover {
+  background: var(--smoke);
+}
+
+.kpi.hl-green,
+.kpi.hl-purple,
+.kpi.hl-amber {
+  border-top: 1px solid var(--border);
+}
+
+.kpi.hl-green .kpi-value { color: var(--green); }
+.kpi.hl-purple .kpi-value { color: var(--purple); }
+.kpi.hl-amber .kpi-value { color: var(--amber); }
+
+/* ── SECTION TITLE VARIANTS ── */
+.section-title.purple,
+.section-title.amber {
+  color: inherit;
+}
+
+/* ── CARDS (monday variants) ── */
+.card.purple-card,
+.card.amber-card {
+  border-color: var(--border);
+  background: var(--white);
+}
+
+
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--text2);
+  letter-spacing: 0.04em;
+}
+
+.leg-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}
+
+/* ── TABLE ── */
+.tbl-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-dark);
+  background: var(--smoke);
+  font-family: var(--font-sans);
+}
+
+td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--smoke);
+}
+
+/* sortable headers (evidencija pattern) */
+.sort-hdr { cursor: pointer; user-select: none; }
+.sort-hdr:hover { color: var(--text); }
+.sort-hdr.sorted-desc::after { content: " \25BC"; font-size: 9px; }
+.sort-hdr.sorted-asc::after  { content: " \25B2"; font-size: 9px; }
+.sort-hdr:focus-visible { outline: 2px solid var(--text); outline-offset: -2px; }
+
+.num {
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+.ruc-g {
+  color: var(--green) !important;
+  font-weight: 500;
+}
+
+.ruc-p {
+  color: var(--purple) !important;
+  font-weight: 500;
+}
+
+.val-b {
+  color: var(--blue) !important;
+}
+
+.yr24 td {
+  color: var(--text3);
+}
+
+.divider td {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  padding: 4px 12px;
+  text-transform: uppercase;
+}
+
+.div-green td {
+  background: rgba(91, 149, 222, 0.05);
+  color: var(--green);
+}
+
+.div-purple td {
+  background: rgba(42, 120, 214, 0.05);
+  color: var(--purple);
+}
+
+/* ── COMPARISON ── */
+.db-ticks,
+.db-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 150px;
+  gap: 12px;
+  align-items: center;
+}
+
+.db-ticks {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.db-ticks div {
+  position: relative;
+  height: 14px;
+}
+
+.db-ticks span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.db-row {
+  height: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.db-row:last-child {
+  border-bottom: none;
+}
+
+.db-month {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.db-axis {
+  position: relative;
+  height: 100%;
+}
+
+.db-axis::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1px dashed var(--border);
+}
+
+.db-line {
+  position: absolute;
+  top: 50%;
+  height: 3px;
+  margin-top: -1.5px;
+  border-radius: 2px;
+  opacity: 0.55;
+}
+
+.db-line.up { background: var(--delta-pos); }
+.db-line.down { background: var(--delta-neg); }
+
+.db-pt {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+}
+
+.db-pt.y25 { background: var(--green); }
+.db-pt.y26 { background: var(--purple); }
+
+.db-vals {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.delta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.delta.up,
+.pos {
+  color: var(--delta-pos);
+}
+
+.delta.down,
+.neg {
+  color: var(--delta-neg);
+}
+
+/* ── FOOTER ── */
+.footer {
+  padding: 20px var(--pad);
+  border-top: 1px solid var(--border-dark);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  font-family: var(--font-sans);
+}
+
+/* ── RESPONSIVE: TABLET (≤1024px) ── */
+@media screen and (max-width: 1024px) {
+  :root {
+    --pad: 28px;
+  }
+
+  /* Nav — scrollable tab strip */
+  .nav-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .nav-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .nav-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 16px 16px;
+  }
+
+  /* Header */
+  .header-left h1 {
+    font-size: 36px;
+  }
+
+  /* KPI grid — 2 columns */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 28px;
+  }
+  .kpi {
+    padding: 20px 20px;
+  }
+  .kpi-value {
+    font-size: 28px;
+  }
+
+  /* Cards */
+  .card {
+    padding: 20px 20px;
+  }
+
+  /* Main rhythm */
+  .main {
+    padding: 28px var(--pad);
+  }
+
+  /* Agency list — reduce fixed widths */
+  .ag-bars {
+    width: 72px;
+  }
+  .ag-vals {
+    width: 44px;
+  }
+}
+
+/* ── RESPONSIVE: MOBILE (≤640px) ── */
+@media screen and (max-width: 640px) {
+  :root {
+    --pad: 16px;
+  }
+
+  /* Navigation — hamburger menu */
+  .nav {
+    padding: 0;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav > div:first-child {
+    padding: 10px 16px;
+    flex-shrink: 0;
+  }
+  .nav-actions {
+    padding: 8px 16px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+  }
+  /* Hamburger button — created via ::before on nav */
+  .nav::before {
+    content: "☰";
+    font-size: 24px;
+    color: var(--text);
+    padding: 8px 16px;
+    cursor: pointer;
+    order: 2;
+  }
+  /* Hide nav-tabs by default on mobile */
+  .nav-tabs {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+    background: var(--white);
+    z-index: 99;
+  }
+  /* Show nav-tabs when menu is open */
+  .nav.menu-open .nav-tabs {
+    display: flex;
+  }
+  .nav-tab {
+    padding: 12px 16px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .nav-tab:last-child {
+    border-bottom: none;
+  }
+  .print-btn {
+    padding: 6px 12px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+  .theme-toggle {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+
+  /* Header — stack to column */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px var(--pad) 20px;
+  }
+  .header-left h1 {
+    font-size: 28px;
+  }
+  .header-right {
+    text-align: left;
+  }
+
+  /* KPI Grid */
+  .kpi-grid {
+    margin-bottom: 20px;
+  }
+  .kpi {
+    padding: 16px 14px;
+  }
+  .kpi-value {
+    font-size: 24px;
+  }
+  .kpi-label {
+    font-size: 10px;
+  }
+  .kpi-sub {
+    font-size: 11px;
+  }
+
+  /* Main & Cards */
+  .main {
+    padding: 20px var(--pad);
+    max-width: 100%;
+  }
+  .card {
+    padding: 16px 14px;
+    margin-bottom: 14px;
+    width: 100%;
+  }
+  .section-title {
+    margin-bottom: 12px;
+  }
+
+  /* Two-column → single column */
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+    width: 100%;
+  }
+
+  /* Canvas — constrain width */
+  canvas {
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  /* Bar rows */
+  .bar-lbl {
+    width: 42px;
+    font-size: 11px;
+  }
+  .bar-val {
+    min-width: 40px;
+    font-size: 11px;
+  }
+
+  /* Agency list */
+  .ag-bars {
+    width: 52px;
+  }
+  .ag-vals {
+    width: 36px;
+    font-size: 10px;
+  }
+  .ag-pct {
+    width: 30px;
+    font-size: 11px;
+  }
+  .ag-name {
+    font-size: 12px;
+  }
+
+  /* Head to head rows: values drop under the axis */
+  .db-ticks,
+  .db-row {
+    grid-template-columns: 34px 1fr;
+    gap: 8px;
+  }
+  .db-row {
+    height: auto;
+    padding: 8px 0;
+  }
+  .db-ticks > div:last-child {
+    display: none;
+  }
+  .db-axis {
+    height: 24px;
+  }
+  .db-vals {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  /* Tables */
+  th {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+  td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  /* Owner list */
+  .owner-item {
+    padding: 10px 0;
+  }
+  .owner-name {
+    font-size: 13px;
+  }
+  .owner-stats {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    font-size: 11px;
+  }
+
+  /* Legend */
+  .legend {
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .leg-item {
+    font-size: 11px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 16px var(--pad);
+    font-size: 11px;
+  }
+}
+
+/* ── PRINT ── */
+@media print {
+  :root {
+    --white: #ffffff !important;
+    --smoke: #f5f5f5 !important;
+    --border: #e8e8e8 !important;
+    --border-dark: #cccccc !important;
+    --text: #111111 !important;
+    --text2: #555555 !important;
+    --text3: #999999 !important;
+    --card-bg: #fafafa !important;
+    --black: #000000 !important;
+    --nav-bg: #ffffff !important;
+  }
+
+  body.dark-mode {
+    background: white !important;
+    color: black !important;
+  }
+
+  body.dark-mode .nav img {
+    filter: none !important;
+  }
+
+  @page {
+    margin: 1.5cm;
+    size: A4 landscape;
+  }
+
+  #sticky-kpi-bar,
+  #shortcut-overlay {
+    display: none !important;
+  }
+
+  .nav,
+  .nav-actions,
+  .print-btn,
+  .theme-toggle {
+    display: none !important;
+  }
+
+  .page {
+    display: block !important;
+    break-after: page;
+    page-break-after: always;
+  }
+  .page:last-of-type {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .header {
+    padding: 20px !important;
+    break-inside: avoid;
+  }
+  .main {
+    padding: 20px !important;
+  }
+  .card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .kpi-grid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  canvas {
+    max-height: 220px !important;
+  }
+}
+
+/* ── UTILITY CLASSES ── */
+.flex-col         { display: flex; flex-direction: column; }
+.legend-centered  { margin-top: 12px; justify-content: center; }
+.leg-dot-green    { background: var(--green); }
+.leg-dot-blue     { background: var(--blue); }
+.leg-dot-blue-dim { background: var(--blue); opacity: 0.6; }
+.leg-dot-purple   { background: var(--purple); }
+.leg-dot-border   { background: var(--border-dark); }
+.kpi-value-green  { color: var(--green); }
+.kpi-value-purple { color: var(--purple-light); }
+
+/* ── mobile-fixes.css guard ──
+   shared/mobile-fixes.css (copied from evidencija) shrinks .nav-tab to 9px for
+   evidencija's bottom tab bar. Monday keeps its hamburger menu, so restore its
+   values here. Higher specificity because mobile-fixes.css loads after this file. */
+@media (max-width: 768px) {
+  .nav .nav-tabs .nav-tab {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    line-height: inherit;
+    white-space: nowrap;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ── Two-year KPI cells and takeaway (ported from evidencija/guides.css, mobile-fixes.css) ── */
+.kpi-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.kpi-delta { display: flex; align-items: baseline; gap: 20px; margin: 4px 0 6px; }
+.kpi-delta-abs { font-family: var(--font-sans); font-size: 36px; font-weight: 600; line-height: 1; }
+.kpi-delta-pct { font-family: var(--font-sans); font-size: 26px; font-weight: 400; letter-spacing: -0.01em; }
+.kpi-2y { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.kpi-2y-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+.kpi-2y-val { font-family: var(--font-sans); font-size: 18px; font-weight: 400; line-height: 1; }
+.takeaway { margin: 0 0 16px; font-size: 15px; line-height: 1.5; color: var(--text); }
+@media (max-width: 640px) {
+  .kpi-grid-2 { grid-template-columns: 1fr; }
+  .kpi-delta-abs { font-size: 26px; }
+  .kpi-delta-pct { font-size: 18px; }
+}
